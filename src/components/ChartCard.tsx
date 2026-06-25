@@ -26,7 +26,7 @@ export default function ChartCard({
           <div className="flex-1 min-w-0">
             <CardTitle className="text-sm font-semibold text-gray-800">{title}</CardTitle>
             {description && (
-              <CardDescription className="mt-0.5 text-xs text-gray-500 leading-relaxed">
+              <CardDescription className="mt-0.5 text-xs text-gray-500 leading-relaxed break-keep">
                 {description}
               </CardDescription>
             )}
