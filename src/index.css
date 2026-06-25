@@ -1,0 +1,94 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+@import "tailwindcss";
+
+:root {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --primary: #313DB8;
+  --primary-light: #e8eaf6;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background: #f0f2f5;
+  color: #1a1a2e;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.report-page {
+  width: 210mm;
+  min-height: 297mm;
+  background: white;
+  margin: 0 auto 24px;
+  padding: 20mm 18mm 18mm;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.report-page.cover-page {
+  padding: 0;
+  overflow: hidden;
+}
+
+.page-footer {
+  position: absolute;
+  bottom: 10mm;
+  left: 18mm;
+  right: 18mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 9px;
+  color: #9ca3af;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 4px;
+}
+
+.metric-value {
+  font-variant-numeric: tabular-nums;
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background: white !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .report-page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0;
+    padding: 18mm 16mm 14mm;
+    box-shadow: none;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .avoid-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .page-footer {
+    position: absolute;
+    bottom: 8mm;
+  }
+}
