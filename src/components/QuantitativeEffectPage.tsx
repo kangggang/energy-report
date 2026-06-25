@@ -106,8 +106,8 @@ export default function QuantitativeEffectPage() {
             </div>
             <div className="text-xs space-y-2">
               {re100ChartData.map((d) => (
-                <div key={d.name} className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-sm" style={{ background: d.fill, border: d.fill === '#e8eaf6' ? '1px solid #c5cae9' : 'none' }} />
+                <div key={d.name} className="flex items-center gap-2 whitespace-nowrap">
+                  <div className="w-3 h-3 rounded-sm shrink-0" style={{ background: d.fill, border: d.fill === '#e8eaf6' ? '1px solid #c5cae9' : 'none' }} />
                   <span className="text-gray-600">{d.name}</span>
                   <span className="font-semibold text-gray-800">{(d.value / 1000000).toFixed(1)}M kWh</span>
                 </div>
