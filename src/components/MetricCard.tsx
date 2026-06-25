@@ -23,7 +23,7 @@ export default function MetricCard({
   return (
     <Card className={cn(
       'avoid-break',
-      highlight && 'border-[#313DB8] border-l-4',
+      highlight && 'border-[#313DB8]',
       className
     )}>
       <CardContent className="p-4">
