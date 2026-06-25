@@ -7,7 +7,7 @@ export const projectInfo = {
   analysisPurpose: 'RE100 대응',
   analysisPeriod: '20년 (2025~2044)',
   analysisDate: '2026-06-25',
-  platform: 'EGRI 재생에너지 시뮬레이션 플랫폼',
+  platform: 'Renergis',
   industry: '금속·기계·전기전자 복합업종',
   area: '1,450,000 m²',
   contractPower: '28,500 kW',

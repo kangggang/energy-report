@@ -48,7 +48,7 @@ export default function CoverPage() {
 
           <div className="relative z-10">
             <div className="inline-block border border-white/40 rounded px-3 py-1 text-white/80 text-xs mb-6 tracking-widest">
-              EGRI SIMULATION REPORT
+              RENERGIS SIMULATION REPORT
             </div>
             <h1 className="text-white text-3xl font-bold leading-tight tracking-tight mb-2">
               산업단지 재생에너지
