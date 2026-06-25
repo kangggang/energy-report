@@ -25,47 +25,47 @@ export default function PvPerformancePage() {
           subtitle="태양광 발전 시스템의 대표일 운전 특성 및 연간 성능을 분석합니다."
         />
 
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          {/* Chart 1: 외기온도 */}
-          <ChartCard
-            title={hourlyAmbientTemperatureData.title}
-            description={hourlyAmbientTemperatureData.description}
-            basisLabel={hourlyAmbientTemperatureData.basisLabel}
-            basisValue={hourlyAmbientTemperatureData.basisValue}
-          >
-            <ResponsiveContainer width="100%" height={170}>
-              <LineChart data={hourlyAmbientTemperatureData.data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                <XAxis dataKey="hour" tick={{ fontSize: 9 }} label={{ value: '시간 (h)', position: 'insideBottom', offset: -2, fontSize: 9 }} />
-                <YAxis tick={{ fontSize: 9 }} unit="°C" width={34} />
-                <Tooltip formatter={(v) => [`${v}°C`, '외기온도']} labelFormatter={(l) => `${l}시`} />
-                <Line type="monotone" dataKey="value" stroke="#f59e0b" strokeWidth={2} dot={{ r: 2 }} />
-                <ReferenceLine y={0} stroke="#9ca3af" strokeDasharray="2 2" />
-              </LineChart>
-            </ResponsiveContainer>
-          </ChartCard>
+        {/* Chart 1: 외기온도 */}
+        <ChartCard
+          title={hourlyAmbientTemperatureData.title}
+          description={hourlyAmbientTemperatureData.description}
+          basisLabel={hourlyAmbientTemperatureData.basisLabel}
+          basisValue={hourlyAmbientTemperatureData.basisValue}
+          className="mb-4"
+        >
+          <ResponsiveContainer width="100%" height={160}>
+            <LineChart data={hourlyAmbientTemperatureData.data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <XAxis dataKey="hour" tick={{ fontSize: 9 }} interval={1} label={{ value: '시간 (h)', position: 'insideBottom', offset: -2, fontSize: 9 }} />
+              <YAxis tick={{ fontSize: 9 }} unit="°C" width={38} />
+              <Tooltip formatter={(v) => [`${v}°C`, '외기온도']} labelFormatter={(l) => `${l}시`} />
+              <Line type="monotone" dataKey="value" stroke="#f59e0b" strokeWidth={2} dot={{ r: 2 }} />
+              <ReferenceLine y={0} stroke="#9ca3af" strokeDasharray="2 2" />
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartCard>
 
-          {/* Chart 2: POA 및 PV 출력 */}
-          <ChartCard
-            title={poaAndPvOutputData.title}
-            description="선택 기준일의 일사량 변화에 따른 PV 출력 반응을 나타냅니다."
-            basisLabel={poaAndPvOutputData.basisLabel}
-            basisValue={poaAndPvOutputData.basisValue}
-          >
-            <ResponsiveContainer width="100%" height={170}>
-              <ComposedChart data={poaAndPvOutputData.data} margin={{ top: 4, right: 24, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                <XAxis dataKey="hour" tick={{ fontSize: 9 }} />
-                <YAxis yAxisId="left" tick={{ fontSize: 9 }} width={32} unit="" label={{ value: 'W/m²', angle: -90, position: 'insideLeft', fontSize: 8, offset: 8 }} />
-                <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 9 }} width={32} label={{ value: 'kW', angle: 90, position: 'insideRight', fontSize: 8, offset: 8 }} />
-                <Tooltip />
-                <Legend iconSize={8} wrapperStyle={{ fontSize: '9px' }} />
-                <Bar yAxisId="left" dataKey="poa" fill="#e8eaf6" stroke="#9fa8da" strokeWidth={1} name="POA (W/m²)" />
-                <Line yAxisId="right" type="monotone" dataKey="pvOutput" stroke="#313DB8" strokeWidth={2} dot={false} name="PV출력 (kW)" />
-              </ComposedChart>
-            </ResponsiveContainer>
-          </ChartCard>
-        </div>
+        {/* Chart 2: POA 및 PV 출력 */}
+        <ChartCard
+          title={poaAndPvOutputData.title}
+          description="선택 기준일의 일사량 변화에 따른 PV 출력 반응을 나타냅니다."
+          basisLabel={poaAndPvOutputData.basisLabel}
+          basisValue={poaAndPvOutputData.basisValue}
+          className="mb-4"
+        >
+          <ResponsiveContainer width="100%" height={160}>
+            <ComposedChart data={poaAndPvOutputData.data} margin={{ top: 4, right: 40, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <XAxis dataKey="hour" tick={{ fontSize: 9 }} interval={1} />
+              <YAxis yAxisId="left" tick={{ fontSize: 9 }} width={40} label={{ value: 'W/m²', angle: -90, position: 'insideLeft', fontSize: 8, offset: 10 }} />
+              <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 9 }} width={40} label={{ value: 'kW', angle: 90, position: 'insideRight', fontSize: 8, offset: 10 }} />
+              <Tooltip />
+              <Legend iconSize={9} wrapperStyle={{ fontSize: '10px' }} />
+              <Bar yAxisId="left" dataKey="poa" fill="#e8eaf6" stroke="#9fa8da" strokeWidth={1} name="POA (W/m²)" />
+              <Line yAxisId="right" type="monotone" dataKey="pvOutput" stroke="#313DB8" strokeWidth={2} dot={false} name="PV출력 (kW)" />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </ChartCard>
 
         {/* Chart 3: 시스템 운전 효율 */}
         <ChartCard

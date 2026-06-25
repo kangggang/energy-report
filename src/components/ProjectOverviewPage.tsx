@@ -103,89 +103,90 @@ export default function ProjectOverviewPage() {
       <ReportPage pageNumber={3}>
         <SectionHeader sectionNumber="2." title="산업단지 부하현황" />
 
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          {/* Chart 1: 단지 24h 평균 부하 */}
-          <ChartCard
-            title={complex24hAggregateProfileData.title}
-            description={complex24hAggregateProfileData.description}
-            basisLabel={complex24hAggregateProfileData.basisLabel}
-            basisValue={complex24hAggregateProfileData.basisValue}
-          >
-            <ResponsiveContainer width="100%" height={160}>
-              <BarChart data={complex24hAggregateProfileData.data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                <XAxis dataKey="hour" tick={{ fontSize: 9 }} interval={3} />
-                <YAxis tick={{ fontSize: 9 }} tickFormatter={(v) => `${(v/1000).toFixed(0)}k`} width={32} />
-                <Tooltip formatter={(v) => [`${Number(v).toLocaleString()} kWh`, '전력사용량']} />
-                <Bar dataKey="value" fill="#313DB8" radius={[2, 2, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </ChartCard>
+        {/* Chart 1: 단지 24h 평균 부하 */}
+        <ChartCard
+          title={complex24hAggregateProfileData.title}
+          description={complex24hAggregateProfileData.description}
+          basisLabel={complex24hAggregateProfileData.basisLabel}
+          basisValue={complex24hAggregateProfileData.basisValue}
+          className="mb-4"
+        >
+          <ResponsiveContainer width="100%" height={160}>
+            <BarChart data={complex24hAggregateProfileData.data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <XAxis dataKey="hour" tick={{ fontSize: 9 }} interval={1} />
+              <YAxis tick={{ fontSize: 9 }} tickFormatter={(v) => `${(v/1000).toFixed(0)}k`} width={32} />
+              <Tooltip formatter={(v) => [`${Number(v).toLocaleString()} kWh`, '전력사용량']} />
+              <Bar dataKey="value" fill="#313DB8" radius={[2, 2, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartCard>
 
-          {/* Chart 2: 업종별 전력사용 통계 */}
-          <ChartCard
-            title={industryStatisticsData.title}
-            description={industryStatisticsData.description}
-            basisLabel={industryStatisticsData.basisLabel}
-            basisValue={industryStatisticsData.basisValue}
-          >
-            <ResponsiveContainer width="100%" height={160}>
-              <ComposedChart data={industryStatisticsData.data} margin={{ top: 4, right: 20, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                <XAxis dataKey="industry" tick={{ fontSize: 8 }} />
-                <YAxis yAxisId="left" tick={{ fontSize: 9 }} tickFormatter={(v) => `${(v/1000000).toFixed(1)}M`} width={36} />
-                <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 9 }} tickFormatter={(v) => `${(v/1000).toFixed(0)}k`} width={36} />
-                <Tooltip formatter={(v, name) => [Number(v).toLocaleString(), name === 'total' ? '총사용량' : '평균사용량']} />
-                <Bar yAxisId="left" dataKey="total" fill="#313DB8" radius={[2, 2, 0, 0]} />
-                <Line yAxisId="right" type="monotone" dataKey="avg" stroke="#f59e0b" strokeWidth={2} dot={{ r: 3 }} />
-              </ComposedChart>
-            </ResponsiveContainer>
-          </ChartCard>
-        </div>
+        {/* Chart 2: 업종별 전력사용 통계 */}
+        <ChartCard
+          title={industryStatisticsData.title}
+          description={industryStatisticsData.description}
+          basisLabel={industryStatisticsData.basisLabel}
+          basisValue={industryStatisticsData.basisValue}
+          className="mb-4"
+        >
+          <ResponsiveContainer width="100%" height={160}>
+            <ComposedChart data={industryStatisticsData.data} margin={{ top: 4, right: 40, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <XAxis dataKey="industry" tick={{ fontSize: 9 }} />
+              <YAxis yAxisId="left" tick={{ fontSize: 9 }} tickFormatter={(v) => `${(v/1000000).toFixed(1)}M`} width={40} />
+              <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 9 }} tickFormatter={(v) => `${(v/1000).toFixed(0)}k`} width={40} />
+              <Tooltip formatter={(v, name) => [Number(v).toLocaleString(), name === 'total' ? '총사용량' : '평균사용량']} />
+              <Legend iconSize={9} wrapperStyle={{ fontSize: '10px' }} />
+              <Bar yAxisId="left" dataKey="total" fill="#313DB8" radius={[2, 2, 0, 0]} name="총사용량 (kWh)" />
+              <Line yAxisId="right" type="monotone" dataKey="avg" stroke="#f59e0b" strokeWidth={2} dot={{ r: 3 }} name="평균사용량 (kWh/개소)" />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </ChartCard>
 
-        <div className="grid grid-cols-2 gap-4">
-          {/* Chart 3: 사업장별 월별 전력사용량 */}
-          <ChartCard
-            title={monthlyComparisonByAddressData.title}
-            description={monthlyComparisonByAddressData.description}
-            basisLabel={monthlyComparisonByAddressData.basisLabel}
-            basisValue={monthlyComparisonByAddressData.basisValue}
-          >
-            <ResponsiveContainer width="100%" height={170}>
-              <BarChart data={monthlyComparisonByAddressData.data} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                <XAxis dataKey="month" tick={{ fontSize: 8 }} />
-                <YAxis tick={{ fontSize: 9 }} tickFormatter={(v) => `${(v/1000).toFixed(0)}k`} width={32} />
-                <Tooltip formatter={(v, name) => [Number(v).toLocaleString(), name]} />
-                <Legend iconSize={8} wrapperStyle={{ fontSize: '9px' }} />
-                {['A', 'B', 'C', 'D', 'E', 'F'].map((key, i) => (
-                  <Bar key={key} dataKey={key} stackId="a" fill={COLORS[i]} name={`사업장 ${key}`} />
-                ))}
-              </BarChart>
-            </ResponsiveContainer>
-          </ChartCard>
+        {/* Chart 3: 사업장별 월별 전력사용량 */}
+        <ChartCard
+          title={monthlyComparisonByAddressData.title}
+          description={monthlyComparisonByAddressData.description}
+          basisLabel={monthlyComparisonByAddressData.basisLabel}
+          basisValue={monthlyComparisonByAddressData.basisValue}
+          className="mb-4"
+        >
+          <ResponsiveContainer width="100%" height={170}>
+            <BarChart data={monthlyComparisonByAddressData.data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <XAxis dataKey="month" tick={{ fontSize: 9 }} />
+              <YAxis tick={{ fontSize: 9 }} tickFormatter={(v) => `${(v/1000).toFixed(0)}k`} width={36} />
+              <Tooltip formatter={(v, name) => [Number(v).toLocaleString(), name]} />
+              <Legend iconSize={9} wrapperStyle={{ fontSize: '10px' }} />
+              {['A', 'B', 'C', 'D', 'E', 'F'].map((key, i) => (
+                <Bar key={key} dataKey={key} stackId="a" fill={COLORS[i]} name={`사업장 ${key}`} />
+              ))}
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartCard>
 
-          {/* Chart 4: 사업장별 시간대 평균 부하 */}
-          <ChartCard
-            title={hourlyAverageProfileByAddressData.title}
-            description={hourlyAverageProfileByAddressData.description}
-            basisLabel={hourlyAverageProfileByAddressData.basisLabel}
-            basisValue={hourlyAverageProfileByAddressData.basisValue}
-          >
-            <ResponsiveContainer width="100%" height={170}>
-              <LineChart data={hourlyAverageProfileByAddressData.data} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                <XAxis dataKey="hour" tick={{ fontSize: 9 }} interval={3} />
-                <YAxis tick={{ fontSize: 9 }} tickFormatter={(v) => `${(v/1000).toFixed(0)}k`} width={32} />
-                <Tooltip formatter={(v, name) => [Number(v).toLocaleString(), name]} />
-                {['A', 'B', 'C', 'D', 'E', 'F'].map((key, i) => (
-                  <Line key={key} type="monotone" dataKey={key} stroke={COLORS[i]} strokeWidth={1.5} dot={false} name={`사업장 ${key}`} />
-                ))}
-                <Line type="monotone" dataKey="avg" stroke="#f59e0b" strokeWidth={2} strokeDasharray="4 2" dot={false} name="평균" />
-              </LineChart>
-            </ResponsiveContainer>
-          </ChartCard>
-        </div>
+        {/* Chart 4: 사업장별 시간대 평균 부하 */}
+        <ChartCard
+          title={hourlyAverageProfileByAddressData.title}
+          description={hourlyAverageProfileByAddressData.description}
+          basisLabel={hourlyAverageProfileByAddressData.basisLabel}
+          basisValue={hourlyAverageProfileByAddressData.basisValue}
+        >
+          <ResponsiveContainer width="100%" height={170}>
+            <LineChart data={hourlyAverageProfileByAddressData.data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <XAxis dataKey="hour" tick={{ fontSize: 9 }} interval={1} />
+              <YAxis tick={{ fontSize: 9 }} tickFormatter={(v) => `${(v/1000).toFixed(0)}k`} width={36} />
+              <Tooltip formatter={(v, name) => [Number(v).toLocaleString(), name]} />
+              <Legend iconSize={9} wrapperStyle={{ fontSize: '10px' }} />
+              {['A', 'B', 'C', 'D', 'E', 'F'].map((key, i) => (
+                <Line key={key} type="monotone" dataKey={key} stroke={COLORS[i]} strokeWidth={1.5} dot={false} name={`사업장 ${key}`} />
+              ))}
+              <Line type="monotone" dataKey="avg" stroke="#f59e0b" strokeWidth={2} strokeDasharray="4 2" dot={false} name="평균" />
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartCard>
 
         <AnalysisComment
           text="산업단지 전체의 피크 시간대는 오전 10시~오후 3시 사이로 집중되며, 8월 여름철에 연간 최대 부하가 발생합니다. 금속제조 및 기계부품 업종이 전체 전력사용량의 약 51%를 차지하고 있어, 해당 업종에 대한 에너지 관리가 단지 전체 효율화의 핵심 과제입니다."
